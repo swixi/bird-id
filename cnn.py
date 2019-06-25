@@ -5,7 +5,6 @@ import os
 
 import numpy as np
 
-from keras.datasets import mnist
 from keras.utils import to_categorical
 from keras import Sequential
 from keras.layers import Conv2D, MaxPooling2D, Dense, Flatten
@@ -42,7 +41,6 @@ for img in images:
     print(img)
 
 X_train, X_val, y_train, y_val = train_test_split(images, labels, test_size=0.1, random_state=97)
-
 
 
 

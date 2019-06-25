@@ -15,10 +15,10 @@ args = parser.parse_args()
 # Using API available at https://www.xeno-canto.org/article/153
 request_url = "https://www.xeno-canto.org/api/2/recordings"
 pre_query = "?query="
-query = "cnt:United%States"
+query = "gen:Calidris%20type:call"
 
 # Download destination
-image_path = os.getcwd() + '/data/images/'
+image_path = os.getcwd() + '/data/images/Calidris'
 
 start_time = time.time()
 
