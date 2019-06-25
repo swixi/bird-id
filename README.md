@@ -1,4 +1,4 @@
-# bird-cnn
+# bird-id
 
 ## Data
 This program can fetch recordings/sonograms from xeno-canto using the API found here: https://www.xeno-canto.org/article/153. 
