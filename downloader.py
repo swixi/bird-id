@@ -18,10 +18,10 @@ args = parser.parse_args()
 # using API available at https://www.xeno-canto.org/article/153
 request_url = "https://www.xeno-canto.org/api/2/recordings"
 pre_query = "?query="
-query = "gen:Calidris%20type:call"
+query = "gen:Phacellodomus%20type:call"
 
 # download destination
-image_path = os.getcwd() + '/data/images/Calidris/'
+image_path = os.getcwd() + '/data/images/Phacellodomus/'
 
 print(f"Query: {query}. Download destination: {image_path}\n")
 
