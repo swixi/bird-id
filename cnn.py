@@ -2,6 +2,7 @@
 # coding: utf-8
 
 import os
+import argparse
 
 import numpy as np
 import tensorflow as tf
@@ -20,10 +21,17 @@ from matplotlib import image
 
 tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
+IMAGE_PATH = os.getcwd() + '/images'
+SPECIES_MODE = True
+
+parser = argparse.ArgumentParser()
+parser.add_argument('-g', '--genus', action='store_true')
+if parser.parse_args().genus:
+    SPECIES_MODE = False
+
 #CROP_X =
 #960x320+62+0
 
-IMAGE_PATH = os.getcwd() + '/images'
 images = []
 labels = []
 
@@ -51,8 +59,11 @@ for genus in genera:
 
         images.append(img_array)
 
-        # parse the species as a label
-        labels.append(img_file.split(".")[0].split("-")[1])
+        # parse label from file
+        if SPECIES_MODE:
+            labels.append(img_file.split(".")[0].split("-")[1])
+        else:
+            labels.append(genus)
 
 #for img in images:
     #print(img)
@@ -60,6 +71,8 @@ for genus in genera:
 # one hot encoding on labels
 encoder = LabelBinarizer()
 one_hot_labels = encoder.fit_transform(labels)
+
+print(one_hot_labels.shape)
 
 X_train, X_val, y_train, y_val = train_test_split(images, one_hot_labels, test_size=0.2, random_state=31)
 X_train = np.array(X_train)
@@ -74,7 +87,7 @@ model.add(Conv2D(filters=32, input_shape=(X_train.shape[1], X_train.shape[2], 1)
                  strides=2, activation='relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Flatten())
-model.add(Dense(4, activation='sigmoid'))
+model.add(Dense(one_hot_labels.shape[1], activation='sigmoid'))
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
 model.summary()

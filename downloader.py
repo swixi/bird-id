@@ -13,6 +13,7 @@ from tools import try_parse_float
 parser = argparse.ArgumentParser()
 parser.add_argument('-d', '--download')
 parser.add_argument('-s', '--scan')
+parser.add_argument('-l', '--limit')
 args = parser.parse_args()
 
 if args.download:
@@ -93,5 +94,8 @@ for i in range(num_recordings):
 
     print(f'Downloaded {sonogram_url} after {(time.time() - start_time):0.2f} sec.\n')
     start_time = time.time()
+
+    if args.limit and count >= int(args.limit):
+        break;
 
 print(f"\n{count} files downloaded.\n")
